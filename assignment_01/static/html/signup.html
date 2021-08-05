@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login Form</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css"
+    />
+    <link rel="stylesheet" href="../css/signUp.css" />
+    <link rel="stylesheet" href="https://m.w3newbie.com/you-tube.css" />
+  </head>
+
+  <body class="main-bg">
+    <div class="login-container">
+      <div>
+        <h1 class="logo-badge text-whitesmoke">
+          <img src="../images/weblogo.jpeg" class="loginImg" />
+        </h1>
+      </div>
+      <p class="text-whitesmoke sign-up">Sign Up</p>
+      <div class="container-content">
+        <form>
+          <fieldset>
+            <legend class="text-center fset">Personal Information</legend>
+          <div
+            class="form-group two-part" 
+          >
+            <input
+              type="text"
+              class="form-control"
+              placeholder="First Name"
+              required=""
+            />
+          </div>
+
+          <div class="form-group two-part" ">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Last Name"
+              required=""
+            />
+          </div>
+
+          <div class="form-group two-part">
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              required=""
+            />
+          </div>
+
+          <div class="form-group two-part">
+            <input
+              type="tel"
+              class="form-control"
+              placeholder="Phone Number"
+              required=""
+            />
+          </div>
+          </fieldset>
+          
+          <fieldset>
+            <legend class="text-center fset">Billing Address</legend>
+          <div class="form-group one-part">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Company Name(Optional)"    
+            />
+          </div>
+
+          <div class="form-group one-part">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Street Address" 
+              required="";   
+            />
+          </div>
+
+          <div class="form-group one-part">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Street Address2"    
+            />
+          </div>
+
+          <div class="form-group two-part">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="City"
+              required=""
+            />
+          </div>
+
+          <div class="form-group two-part">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Postcode"
+              required=""
+            />
+          </div>
+
+          <div class="form-group one-part">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Country"    
+            />
+          </div>
+          </fieldset>
+
+          <fieldset>
+            <legend class="text-center fset">Account Security</legend>
+          <div class="form-group two-part">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="password"
+              required=""
+            />
+          </div>
+
+          <div class="form-group two-part">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Comfirm Password"
+              required=""
+            />
+          </div>
+          
+          <div class="text-darkyellow passStrength text-center"><small>Password Stngth: Enter a Password</small></div>
+        </fieldset>
+          <button type="submit" class="form-button button-l">Sign In</button>
+          <a class="text-darkyellow HaveAccount" href="./login.html">Already a Client? Log In</a>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
