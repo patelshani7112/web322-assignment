@@ -9,7 +9,6 @@ const MongoDBSession = require("connect-mongodb-session")(session);
 const mongoose = require("mongoose");
 
 const db = require("../dbConnect/data-server").MongoURI;
-// User model
 const User = require("../models/User");
 const { request } = require("express");
 
@@ -30,7 +29,23 @@ function sessionCooki(req, res, next) {
   }
 }
 
-router.get("/dashboard", sessionCooki, function (req, res) {
+function isUser(req, res, next) {
+  if (req.session.userInfo.adminTypeIs == "User") {
+    next();
+  } else {
+    res.redirect("/");
+  }
+}
+
+function isAdmin(req, res, next) {
+  if (req.session.userInfo.adminTypeIs == "Admin") {
+    next();
+  } else {
+    res.redirect("/");
+  }
+}
+
+router.get("/dashboard", sessionCooki, isUser, function (req, res) {
   let email = req.params.email;
   let fName = req.params.fName;
   let lName = req.params.lName;
@@ -43,7 +58,7 @@ router.get("/dashboard", sessionCooki, function (req, res) {
   });
 });
 
-router.get("/adminDashboard", sessionCooki, function (req, res) {
+router.get("/adminDashboard", sessionCooki, isAdmin, function (req, res) {
   let email = req.params.email;
   let fName = req.params.fName;
   let lName = req.params.lName;
@@ -181,10 +196,11 @@ router.post(
               newUser
                 .save()
                 .then((user) => {
-                  //req.flash("success_msg", "You are now registered and can log in");
-                  res.redirect(
-                    `/dashboard/${userReg.email}/${userReg.fName}/${userReg.lName}`
-                  );
+                  req.session.userInfo = {
+                    fname: user.firstName,
+                    adminTypeIs: "User",
+                  };
+                  res.redirect("/dashboard");
                 })
                 .catch((err) => console.log(err));
             });
@@ -244,18 +260,19 @@ router.post(
             .then((isMatched) => {
               if (isMatched == true) {
                 console.log("login successfully");
-                const adminSave = "true";
-                const databaseAdmin = user.isAdmin;
+                const userType = "Admin";
 
-                if (user.isAdmin === adminSave) {
+                if (user.userType === userType) {
                   req.session.userInfo = {
                     fname: user.firstName,
+                    adminTypeIs: user.userType,
                   };
                   res.redirect("/adminDashboard");
                 }
-                if (user.isAdmin !== adminSave) {
+                if (user.userType !== userType) {
                   req.session.userInfo = {
                     fname: user.firstName,
+                    adminTypeIs: user.userType,
                   };
                   res.redirect("/dashboard");
                 }
