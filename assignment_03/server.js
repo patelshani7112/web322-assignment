@@ -21,27 +21,8 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-// express session
-app.use(
-  session({
-    secret: "secret",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-
 app.use(passport.initialize());
 app.use(passport.session());
-
-// connect-flash
-app.use(flash());
-
-// global variables
-app.use((req, res, next) => {
-  res.locals.success_msg = req.flash("success-msg");
-  res.locals.error_msg = req.flash("error-msg");
-  next();
-});
 
 // Static Files
 app.use(exp.static("static"));
@@ -61,17 +42,6 @@ app.engine(
 // Routers
 app.use("/", require("./static/routes/indexRoutes"));
 app.use("/", require("./static/routes/loginRoutes"));
-
-app.get("/dashboard/:email/:fName?/:lName?", function (req, res) {
-  let email = req.params.email;
-  let fName = req.params.fName;
-  let lName = req.params.lName;
-  res.render("dashboard", {
-    title: "Welcome",
-    layout: "successPage",
-    email,
-  });
-});
 
 const HTTP_PORT = process.env.PORT || 8000;
 

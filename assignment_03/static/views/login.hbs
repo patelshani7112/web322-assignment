@@ -8,10 +8,7 @@
   <p class="text-whitesmoke sign-in">Sign In Web Hosting</p>
 
   {{#if errorMsg}}
-    <div
-      class="card text-white bg-danger"
-      style="margin-bottom: 20px; width:600px"
-    >
+    <div class="alert alert-warning" style="margin-bottom: 20px; width:600px">
       <div class="card-header">Correct Errors</div>
       <div class="card-body">
         {{#each errorMsg}}
@@ -20,6 +17,24 @@
           </li>
         {{/each}}
       </div>
+    </div>
+  {{/if}}
+
+  {{#if LoginExistErrors}}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{#each LoginExistErrors}}
+        <li>
+          {{this.msg}}
+        </li>
+      {{/each}}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
   {{/if}}
 
