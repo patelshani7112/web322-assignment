@@ -46,28 +46,28 @@ function isAdmin(req, res, next) {
 }
 
 router.get("/dashboard", sessionCooki, isUser, function (req, res) {
-  let email = req.params.email;
-  let fName = req.params.fName;
-  let lName = req.params.lName;
+  // let email = req.params.email;
+  // let fName = req.params.fName;
+  // let lName = req.params.lName;
   res.render("dashboard", {
     title: "Welcome",
     layout: "successPage",
-    email,
-    fName,
-    lName,
+    email: req.session.userInfo.email,
+    firstName: req.session.userInfo.firstName,
+    lastName: req.session.userInfo.lastName,
   });
 });
 
 router.get("/adminDashboard", sessionCooki, isAdmin, function (req, res) {
-  let email = req.params.email;
-  let fName = req.params.fName;
-  let lName = req.params.lName;
+  // let email = req.params.email;
+  // let fName = req.params.fName;
+  // let lName = req.params.lName;
   res.render("adminDashboard", {
     title: "Welcome",
     layout: "adminPage",
-    email,
-    fName,
-    lName,
+    email: req.session.userInfo.email,
+    firstName: req.session.userInfo.firstName,
+    lastName: req.session.userInfo.lastName,
   });
 });
 
@@ -264,14 +264,18 @@ router.post(
 
                 if (user.userType === userType) {
                   req.session.userInfo = {
-                    fname: user.firstName,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
                     adminTypeIs: user.userType,
                   };
                   res.redirect("/adminDashboard");
                 }
                 if (user.userType !== userType) {
                   req.session.userInfo = {
-                    fname: user.firstName,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
                     adminTypeIs: user.userType,
                   };
                   res.redirect("/dashboard");
