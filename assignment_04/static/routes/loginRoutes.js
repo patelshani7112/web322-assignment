@@ -58,16 +58,17 @@ router.get("/dashboard", sessionCooki, isUser, function (req, res) {
   });
 });
 
-router.get("/adminDashboard", sessionCooki, isAdmin, function (req, res) {
+//  sessionCooki, isAdmin,
+router.get("/adminDashboard", function (req, res) {
   // let email = req.params.email;
   // let fName = req.params.fName;
   // let lName = req.params.lName;
   res.render("adminDashboard", {
     title: "Welcome",
     layout: "adminPage",
-    email: req.session.userInfo.email,
-    firstName: req.session.userInfo.firstName,
-    lastName: req.session.userInfo.lastName,
+    // email: req.session.userInfo.email,
+    // firstName: req.session.userInfo.firstName,
+    // lastName: req.session.userInfo.lastName,
   });
 });
 

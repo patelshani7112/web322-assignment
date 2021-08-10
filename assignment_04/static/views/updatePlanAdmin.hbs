@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="css/addPlanAdmin.css" />
+
+<header id="header">
+  <nav>
+    <div class="container">
+      <div class="text-center">
+        <a href="/" class="nav-brand text-dark">User Management System</a>
+      </div>
+
+    </div>
+  </nav>
+</header>
+
+<main id="site-main">
+  <div class="container">
+    <div class="box-nav d-flex justify-between">
+      <div class="filter">
+        <a href="/adminDashboard"><i class="fas fa-angle-double-left"></i>
+          All Users</a>
+      </div>
+    </div>
+    <div class="form-title text-center">
+      <h2 class="text-dark">Update User</h2>
+      <span class="text-light">Use the below form to update an account</span>
+    </div>
+
+    <form action="/api/users" method="POST" id="update_user">
+      <div class="new_user">
+        <div class="form-group">
+          <label for="name" class="text-light">Plan Name</label>
+          <input type="hidden" name="id" value="" />
+          <input type="text" name="name" value="" placeholder="Plan Name" />
+        </div>
+        <div class="form-group">
+          <label for="price" class="text-light">Plan price</label>
+          <input type="number" name="price" value="" placeholder="Plan Price" />
+        </div>
+        <div class="form-group">
+          <label for="description" class="text-light">description</label>
+          <input
+            type="number"
+            name="description"
+            value=""
+            placeholder="Plan description"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="popular" class="text-light">Popular</label>
+          <div class="radio inline">
+            <input type="radio" id="radio-2" name="popular" value="Yes" />
+            <label for="radio-2" class="radio-label">Yes</label>
+          </div>
+          <div class="radio inline">
+            <input type="radio" id="radio-3" name="popular" value="No" />
+            <label for="radio-3" class="radio-label">No</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn text-dark update">Save</button>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</main>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+  integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+  crossorigin="anonymous"
+></script>
+{{! <script src="/js/index.js"></script> }}
