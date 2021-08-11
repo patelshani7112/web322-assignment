@@ -3,13 +3,20 @@ var adminPlans = require("../models/AdminPlan");
 exports.create = (req, res) => {
   let userReg = {
     planName: req.body.planName,
-    planPrice: req.body.planPrice,
+    planPrice1: req.body.planPrice1,
+    planPrice12: req.body.planPrice12,
+    planPrice24: req.body.planPrice24,
+    planPrice36: req.body.planPrice36,
+
     description: req.body.description,
   };
 
   if (
     userReg.planName == "" ||
-    userReg.planPrice == "" ||
+    userReg.planPrice1 == "" ||
+    userReg.planPrice12 == "" ||
+    userReg.planPrice24 == "" ||
+    userReg.planPrice36 == "" ||
     userReg.description == ""
   ) {
     res.redirect("/addPlan");
@@ -17,7 +24,10 @@ exports.create = (req, res) => {
     // new user
     const user = new adminPlans({
       planName: userReg.planName,
-      planPrice: userReg.planPrice,
+      planPrice1: userReg.planPrice1,
+      planPrice12: userReg.planPrice12,
+      planPrice24: userReg.planPrice24,
+      planPrice36: userReg.planPrice36,
       description: userReg.description,
     });
 

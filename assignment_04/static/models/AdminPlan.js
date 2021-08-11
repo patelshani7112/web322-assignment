@@ -5,7 +5,19 @@ const AdminSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  planPrice: {
+  planPrice1: {
+    type: Number,
+    required: true,
+  },
+  planPrice12: {
+    type: Number,
+    required: true,
+  },
+  planPrice24: {
+    type: Number,
+    required: true,
+  },
+  planPrice36: {
     type: Number,
     required: true,
   },
