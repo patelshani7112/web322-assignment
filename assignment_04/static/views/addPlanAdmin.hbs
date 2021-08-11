@@ -21,32 +21,78 @@
     </div>
     <div class="form-title text-center">
       <h2 class="text-dark">New User</h2>
-      <span class="text-light">Use the below form to create a new account</span>
+      <span class="text-info">Use the below form to create a new account</span>
     </div>
+
+    {{#if planErrors}}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{#each planErrors}}
+          <li>
+            {{this.msg}}
+          </li>
+        {{/each}}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {{/if}}
 
     <form action="/api/users" method="POST" id="add_user">
       <div class="new_user">
-        <div class="form-group">
-          <label for="name" class="text-light">Plan Name</label>
+
+        <div class="form-group {{fieldVal.0.valid}}">
+          <label for="planName" class="text-dark">Plan Name</label>
           <input type="hidden" name="id" value="" />
-          <input type="text" name="name" value="" placeholder="Plan Name" />
+          <input
+            type="text"
+            id="planName"
+            name="planName"
+            value="{{userReg.planName}}"
+            placeholder="Enter plan Name"
+          />
+          <div
+            id="validationServerUsernameFeedback invalid-feedback"
+            class="ErrorPosition"
+          >{{ErrorPrints.planName}}</div>
         </div>
-        <div class="form-group">
-          <label for="price" class="text-light">Plan price</label>
-          <input type="number" name="price" value="" placeholder="Plan Price" />
-        </div>
-        <div class="form-group">
-          <label for="description" class="text-light">description</label>
+
+        <div class="form-group {{fieldVal.1.valid}}">
+          <label for="planPrice" class="text-dark">Plan price</label>
           <input
             type="number"
-            name="description"
-            value=""
-            placeholder="Plan description"
+            id="planPrice"
+            name="planPrice"
+            value="{{userReg.planPrice}}"
+            placeholder="Entere plan Price"
           />
+          <div
+            id="validationServerUsernameFeedback invalid-feedback"
+            class="ErrorPosition"
+          >{{ErrorPrints.planPrice}}</div>
+        </div>
+
+        <div class="form-group {{fieldVal.2.valid}}">
+          <label for="description" class="text-dark">description</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            value="{{userReg.description}}"
+            placeholder="Enter plan description"
+          />
+          <div
+            id="validationServerUsernameFeedback invalid-feedback"
+            class="ErrorPosition"
+          >{{ErrorPrints.description}}</div>
         </div>
 
         <div class="form-group">
-          <label for="popular" class="text-light">Popular</label>
+          <label for="popular" class="text-dark">Popular</label>
           <div class="radio inline">
             <input type="radio" id="radio-2" name="popular" value="Yes" />
             <label for="radio-2" class="radio-label">Yes</label>
@@ -58,7 +104,7 @@
         </div>
 
         <div class="form-group">
-          <button type="submit" class="btn text-dark update">Save</button>
+          <button type="submit" class="btn text-dark update">Add Plan</button>
         </div>
 
       </div>
@@ -68,8 +114,9 @@
 </main>
 
 <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-  integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+  integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
   crossorigin="anonymous"
+  referrerpolicy="no-referrer"
 ></script>
-<script src="/js/index.js"></script>
+<script src="../js/index.js"></script>

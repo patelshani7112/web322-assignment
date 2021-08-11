@@ -84,6 +84,11 @@
   opacity: 0;
 }
 
+.ErrorPosition {
+  color: red;
+  margin-left: 600px;
+}
+
 .radio input[type="radio"] + .radio-label:before {
   content: "";
   background: var(--border-btn);

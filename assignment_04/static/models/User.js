@@ -53,10 +53,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "User",
   },
-  dateCreated: {
-    type: Date,
-    default: Date.now(),
-  },
 });
 
 const User = mongoose.model("User", UserSchema);

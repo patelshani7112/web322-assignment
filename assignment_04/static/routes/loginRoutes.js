@@ -10,7 +10,10 @@ const mongoose = require("mongoose");
 
 const db = require("../dbConnect/data-server").MongoURI;
 const User = require("../models/User");
+const AdminPlan = require("../models/AdminPlan");
+const axios = require("axios");
 const { request } = require("express");
+const controller = require("../controller/controller");
 
 router.use(
   clientSession({
@@ -58,18 +61,29 @@ router.get("/dashboard", sessionCooki, isUser, function (req, res) {
   });
 });
 
-//  sessionCooki, isAdmin,
+// //  sessionCooki, isAdmin,
+// router.get("/adminDashboard", function (req, res) {
+//   // let email = req.params.email;
+//   // let fName = req.params.fName;
+//   // let lName = req.params.lName;
+//   res.render("adminDashboard", {
+//     title: "Welcome",
+//     layout: "adminPage",
+//     // email: req.session.userInfo.email,
+//     // firstName: req.session.userInfo.firstName,
+//     // lastName: req.session.userInfo.lastName,
+//   });
+// });
+
+// //  sessionCooki, isAdmin,
 router.get("/adminDashboard", function (req, res) {
-  // let email = req.params.email;
-  // let fName = req.params.fName;
-  // let lName = req.params.lName;
-  res.render("adminDashboard", {
-    title: "Welcome",
-    layout: "adminPage",
-    // email: req.session.userInfo.email,
-    // firstName: req.session.userInfo.firstName,
-    // lastName: req.session.userInfo.lastName,
-  });
+  AdminPlan.find({}, function (err, docx) {
+    res.render("adminDashboard", {
+      title: "Welcome",
+      layout: "adminPage",
+      planData: docx,
+    });
+  }).lean();
 });
 
 router.get("/login", function (req, res) {
@@ -92,7 +106,7 @@ router.get("/", function (req, res) {
   });
 });
 
-// registeration
+// registeration post
 router.post(
   "/register",
   check("rFName", "missing firstName ").notEmpty(),
@@ -212,6 +226,85 @@ router.post(
   }
 );
 
+// add plan post
+// router.post(
+//   "/addPlan",
+//   check("planName", "Plan Name is required").notEmpty(),
+//   check("planPrice", "Price field is required").notEmpty(),
+//   check("description", "description is required").notEmpty(),
+
+//   // check("planName2", "enter Description of plan").notEmpty(),
+//   function (req, res) {
+//     let userReg = {
+//       planName: req.body.planName,
+//       planPrice: req.body.planPrice,
+//       description: req.body.description,
+//     };
+
+//     const errors = validationResult(req);
+
+//     if (!errors.isEmpty()) {
+//       const errorMsg = errors.array();
+
+//       let fieldVal = [
+//         { name: "planName", valid: "" },
+//         { name: "planPrice", valid: "" },
+//         { name: "description", valid: "" },
+//       ];
+
+//       for (let i = 0; i < fieldVal.length; i++) {
+//         if (errorMsg.some((el) => el.param === fieldVal[i].name)) {
+//           fieldVal[i].valid = "is-invalid";
+//         } else {
+//           fieldVal[i].valid = "is-valid";
+//         }
+//       }
+
+//       let ErrorPrints = [];
+//       for (let i = 0; i < errorMsg.length; i++) {
+//         ErrorPrints[errorMsg[i].param] = errorMsg[i].msg;
+//       }
+
+//       res.render("addPlanAdmin", {
+//         layout: "addPlanLayout",
+//         userReg,
+//         ErrorPrints,
+//         fieldVal,
+//       });
+//     } else {
+//       let planErrors = [];
+
+//       AdminPlan.findOne({ planName: userReg.planName }).then((user) => {
+//         if (user) {
+//           planErrors.push({ msg: "Plan Name must be unique" });
+
+//           res.render("addPlanAdmin", {
+//             planErrors,
+//             layout: "addPlanLayout",
+//             userReg,
+//           });
+//         } else {
+//           const newUser = new AdminPlan({
+//             planName: userReg.planName,
+//             planPrice: userReg.planPrice,
+//             description: userReg.description,
+//           }).save((err, data) => {
+//             if (err) {
+//               res.status(500).send({
+//                 message:
+//                   err.message || "Error occurred while a creating operation",
+//               });
+//             } else {
+//               res.redirect("/adminDashboard");
+//             }
+//           });
+//         }
+//       });
+//     }
+//   }
+// );
+
+// login post
 router.post(
   "/login",
   [
@@ -296,8 +389,57 @@ router.post(
   }
 );
 
+router.post("/updatePlanData", (req, res) => {
+  if (req.body._id == "") {
+    console.log("no id is found");
+  } else {
+    updateRecord(req, res);
+    // console.log(req.body._id);
+    // res.render("updatePlanAdmin", {
+    //   viewTitle: "Update Task",
+    //   layout: "updatePlanLayout",
+    // });
+  }
+});
+
+function updateRecord(req, res) {
+  AdminPlan.findOneAndUpdate(
+    { _id: req.body._id },
+    req.body,
+    { new: true },
+    (err, doc) => {
+      if (!err) {
+        res.redirect("adminDashboard");
+      } else {
+        if (err.name == "ValidationError") {
+          handleValidationError(err, req.body);
+          res.render("updatePlanAdmin", {
+            viewTitle: "Update Task",
+            layout: "updatePlanLayout",
+            singlePlan: req.body,
+          });
+        } else {
+          console.log("Error occured in Updating the records" + err);
+        }
+      }
+    }
+  );
+}
+
+// logout post
 router.get("/logout", function (req, res) {
   req.session.reset();
   res.redirect("/");
 });
+
+router.get("/delete/:id", (req, res) => {
+  AdminPlan.findByIdAndRemove(req.params.id, (err, doc) => {
+    if (!err) {
+      res.redirect("/adminDashboard");
+    } else {
+      console.log("An error occured during the Delete Process" + err);
+    }
+  });
+});
+
 module.exports = router;

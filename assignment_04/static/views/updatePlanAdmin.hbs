@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="css/addPlanAdmin.css" />
+<link rel="stylesheet" href="../css/addPlanAdmin.css" />
 
 <header id="header">
   <nav>
@@ -21,55 +21,70 @@
     </div>
     <div class="form-title text-center">
       <h2 class="text-dark">Update User</h2>
-      <span class="text-light">Use the below form to update an account</span>
+      <span class="text-info">Use the below form to update an account</span>
     </div>
 
-    <form action="/api/users" method="POST" id="update_user">
-      <div class="new_user">
-        <div class="form-group">
-          <label for="name" class="text-light">Plan Name</label>
-          <input type="hidden" name="id" value="" />
-          <input type="text" name="name" value="" placeholder="Plan Name" />
-        </div>
-        <div class="form-group">
-          <label for="price" class="text-light">Plan price</label>
-          <input type="number" name="price" value="" placeholder="Plan Price" />
-        </div>
-        <div class="form-group">
-          <label for="description" class="text-light">description</label>
-          <input
-            type="number"
-            name="description"
-            value=""
-            placeholder="Plan description"
-          />
-        </div>
+    {{#if singlePlan}}
 
-        <div class="form-group">
-          <label for="popular" class="text-light">Popular</label>
-          <div class="radio inline">
-            <input type="radio" id="radio-2" name="popular" value="Yes" />
-            <label for="radio-2" class="radio-label">Yes</label>
+      <form action="/updatePlanData" method="POST" id="update_user">
+        <div class="new_user">
+          <input type="hidden" name="_id" value="{{singlePlan._id}}" />
+
+          <div class="form-group">
+            <label for="planName" class="text-dark">Plan Name</label>
+            <input
+              type="text"
+              name="planName"
+              value="{{singlePlan.planName}}"
+              placeholder="Plan Name"
+            />
           </div>
-          <div class="radio inline">
-            <input type="radio" id="radio-3" name="popular" value="No" />
-            <label for="radio-3" class="radio-label">No</label>
+          <div class="form-group">
+            <label for="planPrice" class="text-dark">Plan price</label>
+            <input
+              type="number"
+              name="planPrice"
+              value="{{singlePlan.planPrice}}"
+              placeholder="Plan Price"
+            />
           </div>
-        </div>
+          <div class="form-group">
+            <label for="description" class="text-dark">description</label>
+            <input
+              type="text"
+              name="description"
+              value="{{singlePlan.description}}"
+              placeholder="Plan description"
+            />
+          </div>
 
-        <div class="form-group">
-          <button type="submit" class="btn text-dark update">Save</button>
-        </div>
+          <div class="form-group">
+            <label for="popular" class="text-dark">Popular</label>
+            <div class="radio inline">
+              <input type="radio" id="radio-2" name="popular" value="Yes" />
+              <label for="radio-2" class="radio-label">Yes</label>
+            </div>
+            <div class="radio inline">
+              <input type="radio" id="radio-3" name="popular" value="No" />
+              <label for="radio-3" class="radio-label">No</label>
+            </div>
+          </div>
 
-      </div>
-    </form>
+          <div class="form-group">
+            <button type="submit" class="btn text-dark update">Save</button>
+          </div>
+
+        </div>
+      </form>
+    {{/if}}
 
   </div>
 </main>
 
 <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-  integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+  integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
   crossorigin="anonymous"
+  referrerpolicy="no-referrer"
 ></script>
 {{! <script src="/js/index.js"></script> }}
